@@ -10,6 +10,16 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
+class AnswerInline(admin.StackedInline):
+    model = Answer
+    extra = 1
+
+
+class QuestionInline(admin.StackedInline):
+    model = Answer
+    extra = 1
+
+
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
     list_display = ['text', 'draft']
@@ -18,12 +28,15 @@ class AnswerAdmin(admin.ModelAdmin):
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ['title', 'text', 'answer']
+    list_display = ['text']
+    inlines = [AnswerInline]
 
 
 @admin.register(Quiz)
 class QuizAdmin(admin.ModelAdmin):
     list_display = ['title', 'category']
-    save_as = True
-    save_on_top = True
     prepopulated_fields = {'slug': ('title',)}
+
+
+admin.site.site_title = 'Django Quiz App'
+admin.site.site_header = 'Django Quiz App'
