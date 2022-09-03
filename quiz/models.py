@@ -45,7 +45,7 @@ class Quiz(models.Model):
     title = models.CharField('Название', max_length=25)
     category = models.ForeignKey(Category, related_name='category', on_delete=models.CASCADE)
     question = models.ForeignKey(Question, related_name='question', on_delete=models.CASCADE)
-    slug = models.BooleanField(max_length=25, unique=True)
+    slug = models.SlugField(max_length=50, unique=True)
 
     def __str__(self):
         return self.title
