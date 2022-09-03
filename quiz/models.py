@@ -30,7 +30,7 @@ class Answer(models.Model):
 
 class Question(models.Model):
     title = models.CharField('Название', max_length=25)
-    question = models.TextField('Вопрос')
+    text = models.TextField('Вопрос')
     answer = models.ForeignKey(Answer, related_name='answer', on_delete=models.CASCADE)
 
     def __str__(self):
