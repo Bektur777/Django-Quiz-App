@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -23,6 +24,9 @@ class Quiz(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('question_detail', kwargs={'slug': self.slug})
+
     class Meta:
         verbose_name = 'Тест'
         verbose_name_plural = 'Тесты'
@@ -30,7 +34,7 @@ class Quiz(models.Model):
 
 class Question(models.Model):
     text = models.TextField('Вопрос')
-    question_quiz = models.ForeignKey(Quiz, related_name='question', on_delete=models.CASCADE, default=None)
+    question_quiz = models.ForeignKey(Quiz, related_name='question', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text
@@ -43,7 +47,7 @@ class Question(models.Model):
 class Answer(models.Model):
     text = models.TextField('Ответ')
     draft = models.BooleanField(default=False)
-    quiz_answer = models.ForeignKey(Question, related_name='answer', on_delete=models.CASCADE, default=None)
+    quiz_answer = models.ForeignKey(Question, related_name='answer', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text

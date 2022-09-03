@@ -16,7 +16,7 @@ class AnswerInline(admin.StackedInline):
 
 
 class QuestionInline(admin.StackedInline):
-    model = Answer
+    model = Question
     extra = 1
 
 
@@ -35,6 +35,7 @@ class QuestionAdmin(admin.ModelAdmin):
 @admin.register(Quiz)
 class QuizAdmin(admin.ModelAdmin):
     list_display = ['title', 'category']
+    inlines = [QuestionInline]
     prepopulated_fields = {'slug': ('title',)}
 
 
